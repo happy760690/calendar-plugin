@@ -1,17 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<h2>日历组件返回值：{{customeDate}}</h2>
+  <my-calendar v-model="customeDate"  @change='change'></my-calendar>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+export default{ 
+  setup() {
+    const change = (...arg) => {
+      console.log(arg);
+    };
+
+    let customeDate = ref("2021/04/11")  
+    
+    return { 
+      customeDate,
+      change
+    }
   }
 }
+
 </script>
 
 <style>
