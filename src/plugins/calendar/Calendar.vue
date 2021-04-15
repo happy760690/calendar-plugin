@@ -3,9 +3,9 @@
     <!-- 日历{{modelValue}} -->
     <div class="title_box">
       <span class="prev_year_btn btn" @click="prevYear">&lt;&lt; </span>
-      <span class="prev_month_btn btn" @click="prevDay"> &lt; </span>
+      <span class="prev_month_btn btn" @click="prevMonth"> &lt; </span>
       <span class="time_box">{{ state.dateTitle }}</span>
-      <span class="next_month_btn btn" @click="nextDay"> &gt;</span>
+      <span class="next_month_btn btn" @click="nextMonth"> &gt;</span>
       <span class="next_year_btn btn" @click="nextYear"> &gt;&gt;</span>
     </div>
     <ul class="weekly_box">
@@ -61,17 +61,27 @@ export default {
     /**
      * 前一天
      */
-    function prevDay() {
+    function prevMonth() {
       let { y, m, d} = splitDate(state.dateTitle)
-      --d
+      --m
+      d = 1;
+      if(m == 0){
+        --y;
+        m = 12
+      }
       state.dateTitle = `${y}/${m}/${d}`
     }
     /**
      * 后一天
      */
-    function nextDay(){
+    function nextMonth(){
       let { y, m, d} = splitDate(state.dateTitle)
-      ++d
+      ++m;
+      d = 1;
+      if(m == 13){
+        ++y;
+        m = 1;
+      }
       state.dateTitle = `${y}/${m}/${d}`
     }
     /**
@@ -180,8 +190,8 @@ export default {
       state,
       week,
       selectDay,
-      prevDay,
-      nextDay,
+      prevMonth,
+      nextMonth,
       prevYear,
       nextYear,
       emit,
